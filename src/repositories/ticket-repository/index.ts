@@ -5,7 +5,7 @@ async function findTicketsType() {
 }
 
 async function findTickets(userId: number) {
-  const result = prisma.enrollment.findFirst({
+  const ticketData = prisma.enrollment.findFirst({
     where: { userId: userId },
     include: {
       Ticket: {
@@ -16,17 +16,15 @@ async function findTickets(userId: number) {
     }
 
   });
- 
-  const newData = (await result).Ticket[0];
 
-  return newData;
+  return (await ticketData).Ticket[0];
 }
 
 async function findEnrollment(userId: number) {
-  const result = prisma.enrollment.findFirst({
+  const enrollmentData = prisma.enrollment.findFirst({
     where: { userId: userId }
   });
-  return result;
+  return enrollmentData;
 }
 
 async function postTickets(ticketTypeId: number, userId: number ) {
@@ -42,7 +40,7 @@ async function postTickets(ticketTypeId: number, userId: number ) {
     status: "RESERVED"
   }, });
 
-  const result = prisma.enrollment.findFirst({
+  const newTicketData = prisma.enrollment.findFirst({
     where: { userId: userId },
     include: {
       Ticket: {
@@ -53,17 +51,15 @@ async function postTickets(ticketTypeId: number, userId: number ) {
     }
 
   });
- 
-  const newData = (await result).Ticket[0];
-    
-  return newData;
+
+  return (await newTicketData).Ticket[0];
 }
 
 const ticketsTypeRepository = {
   findTicketsType,
   findTickets,
-  postTickets,
-  findEnrollment
+  findEnrollment,
+  postTickets
 };
   
 export default ticketsTypeRepository;
