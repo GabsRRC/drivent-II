@@ -21,11 +21,11 @@ async function postPayment(userId: number, body: any, ticketId: number, cardData
 }
 
 const paymentService = {
-  getPayment,
   getPaymentId,
   getByUserId,
-  postPayment,
-  updatePayments
+  getPayment,
+  updatePayments,
+  postPayment
 };
   
 export default paymentService;

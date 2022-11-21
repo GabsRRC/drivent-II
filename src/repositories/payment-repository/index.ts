@@ -1,5 +1,4 @@
 import { prisma } from "@/config";
-import { PrismaClient } from "@prisma/client";
 
 async function findPaymentId(ticketId: number) {
   return prisma.ticket.findFirst({
@@ -54,11 +53,11 @@ async function postPayments(userId: number, body: any, ticketId: number, cardDat
     }
   });
 
-  const ticketTypePrice = ticketTypeData.TicketType.price;
+  const ticketTypePrice: number = ticketTypeData.TicketType.price;
 
-  const cardDigits = body.cardData.number;
+  const cardDigits: string = body.cardData.number;
 
-  const cardLastDigits = cardDigits.slice(-4);
+  const cardLastDigits: string = cardDigits.slice(-4);
 
   return prisma.payment.create({
     data: {
@@ -71,9 +70,9 @@ async function postPayments(userId: number, body: any, ticketId: number, cardDat
 }
 
 const paymentRepository = {
-  findPayment,
   findPaymentId,
   findByUserId,
+  findPayment,
   updatePayments,
   postPayments
 };

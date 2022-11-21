@@ -1,5 +1,3 @@
-import { Ticket } from "@prisma/client";
-
 export type ApplicationError = {
   name: string;
   message: string;
@@ -31,18 +29,3 @@ export type RequestError = {
   name: string,
   message: string,
 };
-
-export type NewTicket = Omit<Ticket, "id">;
-
-export type UpdateTicket = Partial<Ticket>;
-
-export type NewTickets = {
-  ticketTypeId: number,
-  enrollmentId: number,
-  status: string,
-  createdAt?: string,
-  updateAt?: string
-}
-
-//export type NewTicket = Partial<Ticket>;
-
