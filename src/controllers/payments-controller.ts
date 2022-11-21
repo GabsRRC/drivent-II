@@ -2,6 +2,7 @@ import { AuthenticatedRequest } from "@/middlewares";
 import { Response } from "express";
 import httpStatus from "http-status";
 import paymentService from "@/services/payments-service";
+import { PaymentBody } from "@/protocols";
 
 export async function getPayment(req: AuthenticatedRequest, res: Response) {
   const userId  = req.userId;
@@ -35,10 +36,9 @@ export async function getPayment(req: AuthenticatedRequest, res: Response) {
 }
 
 export async function postPayment(req: AuthenticatedRequest, res: Response) {
-  const body = req.body;
+  const body: PaymentBody = req.body;
   const userId: number = req.userId;
   const ticketId: number = req.body.ticketId;
-  const cardData: object = req.body.cardData;
 
   try {
     if (!body.ticketId || !body.cardData) {
@@ -57,7 +57,7 @@ export async function postPayment(req: AuthenticatedRequest, res: Response) {
       return res.sendStatus(401);
     }
 
-    await paymentService.postPayment(userId, body, ticketId, cardData);
+    await paymentService.postPayment(body, ticketId);
 
     await paymentService.updatePayments(userId);
 

@@ -1,3 +1,4 @@
+import { PaymentBody } from "@/protocols";
 import paymentRepository from "@/repositories/payment-repository";
 
 async function getPaymentId(ticketId: number) {
@@ -16,8 +17,8 @@ async function updatePayments(userId: number) {
   return await paymentRepository.updatePayments(userId);
 }
 
-async function postPayment(userId: number, body: any, ticketId: number, cardData: object) {
-  return await paymentRepository.postPayments(userId, body, ticketId, cardData);
+async function postPayment(body: PaymentBody, ticketId: number) {
+  return await paymentRepository.postPayments(body, ticketId);
 }
 
 const paymentService = {
